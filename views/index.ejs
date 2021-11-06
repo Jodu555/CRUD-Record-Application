@@ -71,6 +71,16 @@
 	<script src="http://docs.jodu555.de/utils/utils.js"></script>
 
 	<script>
+		const createEntry = document.querySelector('#createEntry');
+
+		createEntry.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const obj = formDataToObject(new FormData(createEntry));
+			console.log(obj);
+
+			createEntry.reset();
+		});
+
 		$table = $('#table');
 
 		$table.bootstrapTable('destroy');
