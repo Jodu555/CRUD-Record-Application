@@ -14,7 +14,7 @@ require('./utils/table').createTable();
 const app = express();
 app.use(cors());
 app.use(morgan('dev'));
-app.use(helmet());
+// app.use(helmet());
 app.use(express.json());
 
 app.set('view-engine', 'ejs');
@@ -23,6 +23,8 @@ const { router: entry } = require('./routes/entry/index');
 
 
 app.use('/entry', entry);
+
+app.get('/', (req, res) => { res.render('index.ejs') });
 
 const { errorHandling, notFound } = require('./utils/middleware');
 app.use('*', notFound);

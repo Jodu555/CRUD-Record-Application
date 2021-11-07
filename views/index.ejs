@@ -69,90 +69,65 @@
 	<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="http://docs.jodu555.de/utils/utils.js"></script>
+	<script src="http://docs.jodu555.de/utils/networking.js"></script>
 
 	<script>
-		const createEntry = document.querySelector('#createEntry');
+		const network = new Networking('http://localhost:3100/');
 
+		const createEntry = document.querySelector('#createEntry');
 		createEntry.addEventListener('submit', (e) => {
 			e.preventDefault();
 			const obj = formDataToObject(new FormData(createEntry));
 			console.log(obj);
-
+			network.post('entry', JSON.stringify(obj));
 			createEntry.reset();
 		});
 
-		$table = $('#table');
+		(async () => {
+			await loadEntrysAndDisplayTable();
+		})();
 
-		$table.bootstrapTable('destroy');
+		async function loadEntrysAndDisplayTable(params) {
+			const data = await network.get('entry');
 
-		const data = [
-			{
-				id: 001,
-				link: '<a href="https://youtube.com/watch?v=WvPZ-blEK-Y" target="_blank">https://youtube.com/watch?v=WvPZ-blEK-Y</a>',
-				time: '06.11.2021',
-				startTime: '19:00',
-				endTime: '20:00',
-				status: 'In Record',
-			},
-			{
-				id: 002,
-				link: '<a href="https://youtube.com/watch?v=WvPZ-blEK-Y" target="_blank">https://youtube.com/watch?v=WvPZ-blEK-Y</a>',
-				time: '07.11.2021',
-				startTime: '19:30',
-				endTime: '20:30',
-				status: 'In Rendering',
-			},
-			{
-				id: 003,
-				link: '<a href="https://youtube.com/watch?v=WvPZ-blEK-Y" target="_blank">https://youtube.com/watch?v=WvPZ-blEK-Y</a>',
-				time: '08.11.2021',
-				startTime: '19:00',
-				endTime: '20:00',
-				status: 'In Compression',
-			},
-			{
-				id: 004,
-				link: '<a href="https://youtube.com/watch?v=WvPZ-blEK-Y" target="_blank">https://youtube.com/watch?v=WvPZ-blEK-Y</a>',
-				time: '09.11.2021',
-				startTime: '19:00',
-				endTime: '20:00',
-				status: 'Finished',
-			},
-		];
+			$table = $('#table');
 
-		$table.bootstrapTable({
-			search: true,
-			columns: [
-				{
-					sortable: true,
-					field: 'id',
-					title: 'ID',
-				},
-				{
-					field: 'link',
-					title: 'Link',
-				},
-				{
-					field: 'time',
-					title: 'Date',
-				},
-				{
-					sortable: true,
-					field: 'startTime',
-					title: 'Start Time',
-				},
-				{
-					sortable: true,
-					field: 'endTime',
-					title: 'End Time',
-				},
-				{
-					sortable: true,
-					field: 'status',
-					title: 'Status',
-				},
-			],
-			data,
-		});
+			$table.bootstrapTable('destroy');
+
+			$table.bootstrapTable({
+				search: true,
+				columns: [
+					{
+						sortable: true,
+						field: 'id',
+						title: 'ID',
+					},
+					{
+						field: 'link',
+						title: 'Link',
+					},
+					{
+						field: 'time',
+						title: 'Date',
+					},
+					{
+						sortable: true,
+						field: 'startTime',
+						title: 'Start Time',
+					},
+					{
+						sortable: true,
+						field: 'endTime',
+						title: 'End Time',
+					},
+					{
+						sortable: true,
+						field: 'status',
+						title: 'Status',
+					},
+				],
+				data,
+			});
+		}
 	</script>
 </html>
