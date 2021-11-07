@@ -1,29 +1,30 @@
 {
-  "name": "crud-records-app",
-  "version": "1.0.0",
-  "description": "A Basic CRUD APP to keep track of all i want to record and when it happens and in which state which recording is",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jodu555/CRUD-Record-Application.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Jodu555/CRUD-Record-Application/issues"
-  },
-  "homepage": "https://github.com/Jodu555/CRUD-Record-Application#readme",
-  "dependencies": {
-    "@jodu555/mysqlapi": "^3.4.0",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "helmet": "^4.6.0",
-    "morgan": "^1.10.0"
-  }
+	"name": "crud-records-app",
+	"version": "1.0.0",
+	"description": "A Basic CRUD APP to keep track of all i want to record and when it happens and in which state which recording is",
+	"main": "index.js",
+	"scripts": {
+		"start": "node src/index.js",
+		"dev": "nodemon src/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Jodu555/CRUD-Record-Application.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Jodu555/CRUD-Record-Application/issues"
+	},
+	"homepage": "https://github.com/Jodu555/CRUD-Record-Application#readme",
+	"dependencies": {
+		"@jodu555/mysqlapi": "^3.4.0",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"ejs": "^3.1.6",
+		"express": "^4.17.1",
+		"helmet": "^4.6.0",
+		"morgan": "^1.10.0"
+	}
 }
