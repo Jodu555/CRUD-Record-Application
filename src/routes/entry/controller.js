@@ -1,35 +1,42 @@
+const { Database } = require('@jodu555/mysqlapi');
+const database = Database.getDatabase();
 
-
-const get = (req, res, next) => {
+const get = async (req, res, next) => {
     try {
-
+        const entrys = await database.get('entry').get({});
+        res.json(entrys);
     } catch (error) {
         next(error);
     }
 };
 
-const create = (req, res, next) => {
+const create = async (req, res, next) => {
     try {
-
+        const entry = await database.get('entry').create(req.body);
+        res.json(entry);
     } catch (error) {
         next(error);
     }
 }
 
-const update = (req, res, next) => {
+const update = async (req, res, next) => {
     try {
-        const uuid = req.params.uuid;
-
+        const UUID = req.params.uuid;
+        const updated = await database.get('updated').update({ UUID }, req.body);
+        res.json(entry);
     } catch (error) {
         next(error);
     }
 }
 
-const del = (req, res, next) => {
+const del = async (req, res, next) => {
 
     try {
-        const uuid = req.params.uuid;
-
+        const UUID = req.params.uuid;
+        await database.get('tablename').delete({
+            UUID
+        });
+        res.json({ UUID });
     } catch (error) {
         next(error);
     }
