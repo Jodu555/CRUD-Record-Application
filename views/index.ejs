@@ -178,6 +178,7 @@
 				dat.link = `<a href="${dat.link}" target="_blank">${dat.link.split('/')[2]}</a>`;
 				dat.displayUUID = dat.UUID.split('-')[2];
 				dat.actions = `<button onclick="edit('${dat.UUID}')" class="btn btn-outline-primary">Edit</button> <button onclick="del('${dat.UUID}')" class="btn btn-outline-danger">Delete</button>`;
+				dat.date = new Date(dat.date).toLocaleDateString();
 			});
 			$table = $('#table');
 
