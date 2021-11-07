@@ -16,7 +16,7 @@ const get = async (req, res, next) => {
 const create = async (req, res, next) => {
     try {
         req.body.UUID = uuidv4();
-        req.body.status = req.body.status || 'Waiting';
+        req.body.status = req.body.status || 'Not Started';
         const entry = await database.get('entry').create(req.body);
         res.json(entry);
     } catch (error) {

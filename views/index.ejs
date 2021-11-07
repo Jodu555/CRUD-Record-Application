@@ -29,7 +29,6 @@
 		href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css"
 	/>
 	<body>
-		<!-- Modal -->
 		<div
 			class="modal fade"
 			id="editModal"
@@ -46,7 +45,17 @@
 						</button>
 					</div>
 					<form id="editForm">
-						<div class="modal-body"></div>
+						<div class="modal-body">
+							<h3 id="editInfo"></h3>
+							<select name="status" class="form-control">
+								<option>Not Started</option>
+								<option>Waiting</option>
+								<option>In Record</option>
+								<option>In Rendering</option>
+								<option>In Compression</option>
+								<option>Finished</option>
+							</select>
+						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-success">Save</button>
@@ -108,6 +117,7 @@
 	<script>
 		let currentUUID;
 		const network = new Networking('http://localhost:3100/');
+		const myModal = new bootstrap.Modal(document.querySelector('#editModal'));
 
 		const createEntry = document.querySelector('#createEntry');
 		createEntry.addEventListener('submit', async (e) => {
@@ -121,6 +131,7 @@
 		const editForm = document.querySelector('#editForm');
 		editForm.addEventListener('submit', async (e) => {
 			e.preventDefault();
+			myModal.hide();
 			const obj = formDataToObject(new FormData(editForm));
 
 			network.patch('entry/' + currentUUID, JSON.stringify(obj));
@@ -152,7 +163,7 @@
 
 		function edit(UUID) {
 			currentUUID = UUID;
-			const myModal = new bootstrap.Modal(document.querySelector('#editModal'));
+			document.querySelector('#editInfo').innerHTML = UUID.split('-')[2];
 			myModal.toggle();
 		}
 
