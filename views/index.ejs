@@ -35,19 +35,26 @@
 					<div class="row">
 						<div class="col">
 							<label for="link" class="form-label">Record Link</label>
-							<input type="text" class="form-control" name="link" id="link" placeholder="Link" />
+							<input
+								type="text"
+								required
+								class="form-control"
+								name="link"
+								id="link"
+								placeholder="Link"
+							/>
 						</div>
 						<div class="col">
 							<label for="date" class="form-label">Date</label>
-							<input type="date" class="form-control" name="date" id="date" />
+							<input type="date" required class="form-control" name="date" id="date" />
 						</div>
 						<div class="col">
 							<label for="start" class="form-label">Start Time</label>
-							<input type="time" class="form-control" name="startTime" id="start" />
+							<input type="time" required class="form-control" name="startTime" id="start" />
 						</div>
 						<div class="col">
 							<label for="end" class="form-label">End Time</label>
-							<input type="time" class="form-control" name="endTime" id="end" />
+							<input type="time" required class="form-control" name="endTime" id="end" />
 						</div>
 					</div>
 					<div class="text-center" style="margin-top: 2vh">
@@ -75,21 +82,29 @@
 		const network = new Networking('http://localhost:3100/');
 
 		const createEntry = document.querySelector('#createEntry');
-		createEntry.addEventListener('submit', (e) => {
+		createEntry.addEventListener('submit', async (e) => {
 			e.preventDefault();
 			const obj = formDataToObject(new FormData(createEntry));
 			console.log(obj);
 			network.post('entry', JSON.stringify(obj));
 			createEntry.reset();
+			await loadEntrysAndDisplayTable();
 		});
 
 		(async () => {
 			await loadEntrysAndDisplayTable();
 		})();
 
+		function del(UUID) {}
+
 		async function loadEntrysAndDisplayTable(params) {
 			const data = await network.get('entry');
 
+			data.forEach((dat) => {
+				dat.link = `<a href="${dat.link}" target="_blank">${dat.link}</a>`;
+				dat.UUID = dat.UUID.split('-')[0];
+				dat.actions = `<button class="btn btn-outline-primary">Edit</button> <button class="btn btn-outline-danger">Delete</button>`;
+			});
 			$table = $('#table');
 
 			$table.bootstrapTable('destroy');
@@ -99,7 +114,7 @@
 				columns: [
 					{
 						sortable: true,
-						field: 'id',
+						field: 'UUID',
 						title: 'ID',
 					},
 					{
@@ -107,7 +122,7 @@
 						title: 'Link',
 					},
 					{
-						field: 'time',
+						field: 'date',
 						title: 'Date',
 					},
 					{
@@ -124,6 +139,10 @@
 						sortable: true,
 						field: 'status',
 						title: 'Status',
+					},
+					{
+						field: 'actions',
+						title: 'Actions',
 					},
 				],
 				data,

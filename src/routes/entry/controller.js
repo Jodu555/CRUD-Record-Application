@@ -1,6 +1,9 @@
 const { Database } = require('@jodu555/mysqlapi');
 const database = Database.getDatabase();
 
+const { v4: uuidv4 } = require('uuid');
+uuidv4();
+
 const get = async (req, res, next) => {
     try {
         const entrys = await database.get('entry').get({});
@@ -12,6 +15,7 @@ const get = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try {
+        req.body.UUID = uuidv4();
         const entry = await database.get('entry').create(req.body);
         res.json(entry);
     } catch (error) {
