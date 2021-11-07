@@ -16,6 +16,7 @@ const get = async (req, res, next) => {
 const create = async (req, res, next) => {
     try {
         req.body.UUID = uuidv4();
+        req.body.status = req.body.status || 'Waiting';
         const entry = await database.get('entry').create(req.body);
         res.json(entry);
     } catch (error) {
@@ -27,7 +28,7 @@ const update = async (req, res, next) => {
     try {
         const UUID = req.params.uuid;
         const updated = await database.get('entry').update({ UUID }, req.body);
-        res.json(entry);
+        res.json(updated);
     } catch (error) {
         next(error);
     }

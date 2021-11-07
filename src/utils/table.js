@@ -13,6 +13,7 @@ const createTable = () => {
         'date': 'varchar(64)',
         'startTime': 'varchar(64)',
         'endTime': 'varchar(64)',
+        'status': 'varchar(64)',
     });
 
 }
