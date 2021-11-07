@@ -26,7 +26,7 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         const UUID = req.params.uuid;
-        const updated = await database.get('updated').update({ UUID }, req.body);
+        const updated = await database.get('entry').update({ UUID }, req.body);
         res.json(entry);
     } catch (error) {
         next(error);
@@ -37,7 +37,7 @@ const del = async (req, res, next) => {
 
     try {
         const UUID = req.params.uuid;
-        await database.get('tablename').delete({
+        await database.get('entry').delete({
             UUID
         });
         res.json({ UUID });
