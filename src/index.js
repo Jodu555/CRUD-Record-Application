@@ -2,14 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const dotent = require('dotent').config();
+const dotenv = require('dotenv').config();
 
 const { Database } = require('@jodu555/mysqlapi');
 
 const database = Database.createDatabase(process.env.DB_HOST, process.env.DB_USERNAME, process.env.DB_PASSWORD, process.env.DB_DATABASE);
 database.connect();
 
-
+require('./utils/table').createTable();
 
 const app = express();
 app.use(cors());
@@ -22,7 +22,7 @@ app.set('view-engine', 'ejs');
 const { router: entry } = require('./routes/entry/index');
 
 
-app.use('/entry', authManager.authentication, entry);
+app.use('/entry', entry);
 
 const { errorHandling, notFound } = require('./utils/middleware');
 app.use('*', notFound);
