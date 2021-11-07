@@ -182,6 +182,10 @@
 			});
 			$table = $('#table');
 
+			data.sort((a, b) => {
+				return a.startTime.localeCompare(b.startTime);
+			});
+
 			$table.bootstrapTable('destroy');
 
 			$table.bootstrapTable({
