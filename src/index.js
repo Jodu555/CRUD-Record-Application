@@ -2,6 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const dotent = require('dotent').config();
+
+const { Database } = require('@jodu555/mysqlapi');
+
+const database = Database.createDatabase(process.env.DB_HOST, process.env.DB_USERNAME, process.env.DB_PASSWORD, process.env.DB_DATABASE);
+database.connect();
 
 const app = express();
 app.use(cors());
